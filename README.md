@@ -1,6 +1,7 @@
 # Projeto_PROO-Sistema_Produtividade_Academica
 
 1. O sistema deve permitir a edição de projetos de pesquisa
+
 a. Alocação de participantes. Deve existir pelo menos um professor alocado  para o
 projeto. Um aluno de graduação não pode participar de mais de dois projetos “em andamento”. A alocação deve ser permitida apenas quando o projeto estiver “em elaboração”.  
 b. Alteração do status  
