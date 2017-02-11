@@ -6,7 +6,9 @@
   
   b. Alteração do status
   
+    
     i. “Em elaboração” para “Em andamento”. O gerente deve poder iniciar um projeto apenas se constarem todas as informações básicas a respeito do projeto cadastradas. 
+    
     
     ii. “Em andamento” para “Concluído”. O gerente deve poder concluir um projeto apenas se existirem publicações associadas ao projeto.
     
