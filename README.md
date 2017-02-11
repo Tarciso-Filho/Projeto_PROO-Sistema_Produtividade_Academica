@@ -3,8 +3,11 @@
 1. O sistema deve permitir a edição de projetos de pesquisa
 
   a. Alocação de participantes. Deve existir pelo menos um professor alocado para o projeto. Um aluno de graduação não pode participar de mais de dois projetos “em andamento”. A alocação deve ser permitida apenas quando o projeto estiver “em elaboração”.
-  b. Alteração do status 
+  
+  b. Alteração do status
+  
     i. “Em elaboração” para “Em andamento”. O gerente deve poder iniciar um projeto apenas se constarem todas as informações básicas a respeito do projeto cadastradas. 
+    
     ii. “Em andamento” para “Concluído”. O gerente deve poder concluir um projeto apenas se existirem publicações associadas ao projeto.
     
 2. O sistema deve permitir a inclusão de informações referentes à produção acadêmica. Uma
