@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public class ProduçãoAcademica
 {
-    private String titulo;
-    private ArrayList<Colaborador> autores;
-    private Projeto associado;
+    protected String titulo;
+    protected ArrayList<Colaborador> autores;
+    protected Projeto associado;
     
     public ProduçãoAcademica(String novoTitulo, Projeto novoAssociado)
     {

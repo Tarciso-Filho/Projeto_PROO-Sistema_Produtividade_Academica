@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 public class Colaborador
 {
-    private String nome, email;
-    private Função tipoColaborador;
-    private ArrayList<Projeto> historico;
-    private ArrayList<ProduçãoAcademica> artigos;
+    protected String nome, email;
+    protected Função tipoColaborador;
+    protected ArrayList<Projeto> historico;
+    protected ArrayList<ProduçãoAcademica> artigos;
     
     
     public Colaborador( String novoNome, String novoEmail, Função novoTipoColaborador )
@@ -14,7 +14,15 @@ public class Colaborador
         this.nome = novoNome;
         this.email = novoEmail;
         this.tipoColaborador = novoTipoColaborador;
+    }
+    
+    public void incializarHistorico()
+    {
         this.historico = new ArrayList<Projeto>();
+    }
+    
+    public void incializarArtigos()
+    {
         this.artigos = new ArrayList<ProduçãoAcademica>();
     }
 
