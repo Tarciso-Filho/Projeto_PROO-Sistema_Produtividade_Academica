@@ -3,5 +3,5 @@ package gestãodeproduçãoacademica;
 
 public enum Status
 {
-    EM_ELABORAÇÃO, EM_ANDAMENTO, CONCLUIDO
+    EM_ELABORAÇÃO, EM_ANDAMENTO, CONCLUIDO;
 }

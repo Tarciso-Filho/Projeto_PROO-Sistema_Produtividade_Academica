@@ -6,7 +6,7 @@ public class Colaborador
     protected String nome, email;
     protected Função tipoColaborador;
     protected ArrayList<Projeto> historico;
-    protected ArrayList<ProduçãoAcademica> artigos;
+    protected ArrayList<Publicação> artigos;
     
     
     public Colaborador( String novoNome, String novoEmail, Função novoTipoColaborador )
@@ -16,14 +16,14 @@ public class Colaborador
         this.tipoColaborador = novoTipoColaborador;
     }
     
-    public void incializarHistorico()
+    public void inicializarHistorico()
     {
         this.historico = new ArrayList<Projeto>();
     }
     
-    public void incializarArtigos()
+    public void inicializarArtigos()
     {
-        this.artigos = new ArrayList<ProduçãoAcademica>();
+        this.artigos = new ArrayList<>();
     }
 
     /**
@@ -63,9 +63,7 @@ public class Colaborador
         return historico;
     }
 
-    /**
-     * @param historico the historico to set
-     */
+    
     public void addHistorico(Projeto novo)
     {
         this.historico.add(novo);
@@ -74,15 +72,22 @@ public class Colaborador
     /**
      * @return the artigos
      */
-    public ArrayList<ProduçãoAcademica> getArtigos() {
+    public ArrayList<Publicação> getArtigos()
+    {
         return artigos;
     }
 
-    /**
-     * @param artigos the artigos to set
-     */
-    public void addArtigos(ProduçãoAcademica novoArtigo)
+    
+    public void addArtigos(Publicação novoArtigo)
     {
         this.artigos.add(novoArtigo);
+    }
+    
+    @Override
+    public String toString()
+    {
+        String info = this.tipoColaborador.name();
+        info += "\nNome: " + this.nome + "\nE-Mail: "+ this.email +"\n";
+        return info;
     }
 }
