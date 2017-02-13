@@ -1,6 +1,7 @@
 package gestãodeproduçãoacademica;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PrincipalGPA 
 {
@@ -11,7 +12,11 @@ public class PrincipalGPA
         ArrayList<ProduçãoAcademica> listaProduções = new ArrayList(100);
         
         Scanner ler = new Scanner(System.in);
-        int opção;
+        String novoNome, novoEmail, novoTitulo, novaAgencia, novoObjetivo, 
+                novaDescrição;
+        double novoValor;
+        Calendar novoComeço, novoFim;
+        int opção, novoAno;
         
         do
         {
