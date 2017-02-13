@@ -2,13 +2,13 @@ package gestãodeproduçãoacademica;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
 public class Projeto
 {
     private String titulo, agenciaFinanciadora, objetivo, descrição;
     private double valorFinanciado;
     private Calendar dataInicio, dataTermino;
     private ArrayList<Colaborador> participantes;
+    private Status estado;
     
     public Projeto( String novoTitulo, String novaAgenciaFinanciadora, 
             String novoObjetivo, String novaDescrição, double novoValorFinanciado, 
@@ -22,6 +22,7 @@ public class Projeto
         this.dataInicio = novoInicio;
         this.dataTermino = novoTermino;
         participantes = new ArrayList<Colaborador>();
+        estado = Status.EM_ELABORAÇÃO;
     }
 
     public String getTitulo()
