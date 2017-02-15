@@ -22,4 +22,24 @@ public class Orientação extends ProduçãoAcademica
         this.autores.add(autor);
     }
     
+    public String toString( int id )
+    {
+        int i;
+        String info = "Orientação #" + Integer.toString(id + 1) 
+                + "\nTitulo: " + this.titulo + "\n" 
+                + this.associado.toStringResumido(0);
+        for( i = 0; i < this.autores.size(); i++ )
+        {
+            info += this.autores.get(i).toStringResumido(i + 1);
+        }
+        return info;
+    }
+    
+    public String toStringResumido( int id )
+    {
+        String info = "Orientação #" + Integer.toString(id + 1) 
+                + "\nTitulo: " + this.titulo + "\n" + this.associado.toStringResumido(0);
+        return info;
+    }
+    
 }

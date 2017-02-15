@@ -1,7 +1,9 @@
 package gestãodeproduçãoacademica;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 public class Projeto
 {
     private String titulo, agenciaFinanciadora, objetivo, descrição;
@@ -110,12 +112,42 @@ public class Projeto
     
     public String toString( int id )
     {
+        int i;
         String info = "Projeto #";
+        DateFormat converter = DateFormat.getDateInstance(DateFormat.FULL);
         info += Integer.toString(id) + "\nTitulo: " + this.titulo + 
-                "\nData de Inicio: " + this.dataInicio + "\nEstado: ";
+                "\nData de Inicio: " + converter.format(this.dataInicio.getTime()) 
+                + "\nEstado: ";
         if(this.estado == Status.CONCLUIDO)
         {
-            info += this.estado.name() + "\nData de Termino: " + this.dataTermino;
+            info += this.estado.name() + "\nData de Termino: " 
+                    + converter.format(this.dataTermino.getTime());
+        }else
+        {
+            info += this.estado.name();
+        }
+        info += "\nAgência Financiadora: " + this.agenciaFinanciadora 
+                + "\nValor Financiado: R$ " 
+                + Double.toString(this.valorFinanciado) + "\nObjetivo: " 
+                + this.objetivo + "\nDescrição: " + this.descrição;
+        for( i = 0; i < this.participantes.size(); i++ )
+        {
+            info += this.participantes.get(i).toStringResumido(i + 1);
+        }
+        
+        return info;
+    }
+    
+    public String toStringResumido( int id )
+    {
+        String info = "Projeto #";
+        DateFormat converter = DateFormat.getDateInstance(DateFormat.FULL);
+        info += Integer.toString(id) + "\nTitulo: " + this.titulo + 
+                "\nData de Inicio: " + converter.format(this.dataInicio.getTime()) 
+                + "\nEstado: ";
+        if(this.estado == Status.CONCLUIDO)
+        {
+            info += this.estado.name() + "\nData de Termino: " + converter.format(this.dataTermino.getTime());
         }else
         {
             info += this.estado.name();

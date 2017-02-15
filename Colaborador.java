@@ -14,6 +14,8 @@ public class Colaborador
         this.nome = novoNome;
         this.email = novoEmail;
         this.tipoColaborador = novoTipoColaborador;
+        this.inicializarArtigos();
+        this.inicializarHistorico();
     }
     
     public void inicializarHistorico()
@@ -71,6 +73,8 @@ public class Colaborador
 
     /**
      * @return the artigos
+     * 
+     * 
      */
     public ArrayList<Publicação> getArtigos()
     {
@@ -83,10 +87,28 @@ public class Colaborador
         this.artigos.add(novoArtigo);
     }
     
-    @Override
-    public String toString()
+    
+    public String toString(int id)
     {
-        String info = this.tipoColaborador.name();
+        int i;
+        String info = "Colaborador #";
+        info += Integer.toString(id + 1) + "\n" + this.tipoColaborador.name();
+        info += "\nNome: " + this.nome + "\nE-Mail: "+ this.email +"\n";
+        for( i = 0; i < this.historico.size(); i++ )
+        {
+            info += this.historico.get(i).toStringResumido(i + 1);
+        }
+        for( i = 0; i < this.artigos.size(); i++ )
+        {
+            info += this.artigos.get(i).toStringResumido(i + 1);
+        }
+        return info;
+    }
+    
+    public String toStringResumido( int id )
+    {
+        String info = "Colaborador #";
+        info += Integer.toString(id + 1) + "\n" + this.tipoColaborador.name();
         info += "\nNome: " + this.nome + "\nE-Mail: "+ this.email +"\n";
         return info;
     }

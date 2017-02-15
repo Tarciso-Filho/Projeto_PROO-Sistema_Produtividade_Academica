@@ -228,10 +228,50 @@ public class PrincipalGPA
                     
                     break;
                 case 6:
-                    
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            id = lerNovoInteiro(4);
+                            id--;
+                            System.out.println(listaColaboradores.get(id).toString(id));
+                            pronto = true;
+                        }catch(InputMismatchException erro)
+                        {
+                            System.out.println("Por favor, digite apenas números!!!\n");
+                        }catch(IndexOutOfBoundsException erro2)
+                        {
+                            System.out.println("Esse valor esta fora da "
+                                    + "lista de Colaboradores\n");
+                            pronto = true;
+                            break;
+                        }
+                    }
+                    System.out.println("Fim de Colaborador\n");
                     break;
                 case 7:
-                    
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            id = lerNovoInteiro(5);
+                            id--;
+                            System.out.println(listaProjetos.get(id).toString(id));
+                            pronto = true;
+                        }catch(InputMismatchException erro)
+                        {
+                            System.out.println("Por favor, digite apenas números!!!\n");
+                        }catch(IndexOutOfBoundsException erro2)
+                        {
+                            System.out.println("Esse valor esta fora da "
+                                    + "lista de Projetos\n");
+                            pronto = true;
+                            break;
+                        }
+                    }
+                    System.out.println("Fim de Projeto\n");
                     break;
                 case 8:
                     
@@ -315,7 +355,7 @@ public class PrincipalGPA
                                     + "números e virgulas!!!\n");
                         }
                     }
-                    System.out.println("Digite a objetivo do Projeto:");
+                    System.out.println("Digite o objetivo do Projeto:");
                     novoObjetivo = ler.nextLine();
                     System.out.println("Digite a descrição do Projeto:");
                     novaDescrição = ler.nextLine();
