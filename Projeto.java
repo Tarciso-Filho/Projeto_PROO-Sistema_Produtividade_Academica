@@ -108,5 +108,24 @@ public class Projeto
         this.participantes.add(participante);
     }
     
+    public String toString( int id )
+    {
+        String info = "Projeto #";
+        info += Integer.toString(id) + "\nTitulo: " + this.titulo + 
+                "\nData de Inicio: " + this.dataInicio + "\nEstado: ";
+        if(this.estado == Status.CONCLUIDO)
+        {
+            info += this.estado.name() + "\nData de Termino: " + this.dataTermino;
+        }else
+        {
+            info += this.estado.name();
+        }
+        info += "\nAgência Financiadora: " + this.agenciaFinanciadora 
+                + "\nValor Financiado: R$ " 
+                + Double.toString(this.valorFinanciado) + "\nObjetivo: " 
+                + this.objetivo + "\nDescrição: " + this.descrição;
+        
+        return info;
+    }
     
 }

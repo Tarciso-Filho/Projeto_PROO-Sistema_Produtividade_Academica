@@ -5,8 +5,7 @@ import java.util.Calendar;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.InputMismatchException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.lang.IndexOutOfBoundsException;
 
 public class PrincipalGPA 
 {
@@ -15,31 +14,45 @@ public class PrincipalGPA
         Scanner ler = new Scanner(System.in);
         int resultado;
         
-        if ( opcao == 1 )
+        switch (opcao)
         {
-            System.out.println("Digite:");
-            System.out.println("01-Para alocar participantes num projeto;");
-            System.out.println("02-Para alterar status de um projeto para em andamento;");
-            System.out.println("03-Para alterar status de um projeto para concluido;");
-            System.out.println("04-Para inserir uma nova publicação;");
-            System.out.println("05-Para inserir uma nova orientação;");
-            System.out.println("06-Para consultar um colaborador;");
-            System.out.println("07-Para consultar um projeto;");
-            System.out.println("08-Para imprimir o relatório da produção academica do laboratório;");
-            System.out.println("09-Para inserir um novo professor;");
-            System.out.println("10-Para inserir um novo aluno ou pesquisador;");
-            System.out.println("11-Para inserir um novo projeto;");
-            System.out.println("00-Para Sair\n");
-        } else if ( opcao == 2 )
-        {
-            System.out.println("Digite o ANO em que foi publicada:");
-        }else if ( opcao == 3 )
-        {
-            System.out.println("Digite:");
-            System.out.println("01-Aluno Graduação;");
-            System.out.println("02-Aluno Pós Graduação;");
-            System.out.println("03-Aluno Mestrado;");
-            System.out.println("04-Pesquisador;");
+            case 1:
+                System.out.println("Digite:");
+                System.out.println("01-Para alocar participantes num projeto;");
+                System.out.println("02-Para alterar status de um projeto para em andamento;");
+                System.out.println("03-Para alterar status de um projeto para concluido;");
+                System.out.println("04-Para inserir uma nova publicação;");
+                System.out.println("05-Para inserir uma nova orientação;");
+                System.out.println("06-Para consultar um colaborador;");
+                System.out.println("07-Para consultar um projeto;");
+                System.out.println("08-Para imprimir o relatório da produção academica do laboratório;");
+                System.out.println("09-Para inserir um novo professor;");
+                System.out.println("10-Para inserir um novo aluno ou pesquisador;");
+                System.out.println("11-Para inserir um novo projeto;");
+                System.out.println("00-Para Sair\n");
+                break;
+            case 2:
+                System.out.println("Digite o ANO em que foi publicada:");
+                break;
+            case 3:
+                System.out.println("Digite:");
+                System.out.println("01-Aluno Graduação;");
+                System.out.println("02-Aluno Pós Graduação;");
+                System.out.println("03-Aluno Mestrado;");
+                System.out.println("04-Pesquisador;");
+                break;
+            case 4:
+                System.out.println("Digite o ID do colaborador:");
+                break;
+            case 5:
+                System.out.println("Digite o ID do projeto:");
+                break;
+            case 6:
+                System.out.println("Informe o ID do primeiro participante "
+                                + "(um Professor): ");
+                break;
+            default:
+                break;
         }
         
         
@@ -99,11 +112,12 @@ public class PrincipalGPA
                 novaDescrição, lendoString;
         double novoValor = 0.0;
         Calendar novoComeço = Calendar.getInstance(), novoFim = Calendar.getInstance();
-        int opção = 0, novoAno = 0, funcao = 0;
-        boolean pronto;
+        int opção = 0, novoAno = 0, funcao = 0, id = -1, tamanho = -1;
+        boolean pronto, cancelar;
         
         do
         {
+            cancelar = false;
             pronto = false;
             while(!pronto)
             {
@@ -118,11 +132,88 @@ public class PrincipalGPA
                 
             }
             
-            
             switch(opção)
             {
                 case 1:
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            id = lerNovoInteiro(5);
+                            tamanho = listaProjetos.get(id).getParticipantes().size();
+                            pronto = true;
+                        }catch(InputMismatchException erro1)
+                        {
+                            System.out.println("Por favor, digite apenas números!!!\n");
+                        }catch(IndexOutOfBoundsException erro2)
+                        {
+                            System.out.println("Esse valor é maior que o "
+                                    + "número de projetos\n");
+                            pronto = true;
+                            break;
+                        }
+                    }
                     
+                    if( tamanho > 0 )
+                    {
+                        pronto = false;
+                        while(!pronto)
+                        {
+                            try
+                            {
+                                funcao = lerNovoInteiro(4);
+                                pronto = true;
+                            }catch(InputMismatchException erro1)
+                            {
+                                System.out.println("Por favor, digite apenas números!!!\n");
+                            }catch(IndexOutOfBoundsException erro2)
+                            {
+                                System.out.println("Esse valor é maior que o "
+                                        + "número de projetos\n");
+                                pronto = true;
+                                break;
+                            }
+                        }
+                        if(funcao == -1)
+                        {
+                            listaProjetos.get(id).addParticipantes(
+                                listaColaboradores.get(funcao));
+                        }else
+                        {
+                            System.out.println("Esse Colaborador não existe!!!\n");
+                        }
+                    }else
+                    {
+                        pronto = false;
+                        while(!pronto)
+                        {
+                            try
+                            {
+                                funcao = lerNovoInteiro(6);
+                                pronto = true;
+                            }catch(InputMismatchException erro)
+                            {
+                                System.out.println("Por favor, digite apenas números!!!\n");
+                            }catch(IndexOutOfBoundsException erro2)
+                            {
+                                System.out.println("Esse valor é maior que o "
+                                        + "número de projetos\n");
+                                pronto = true;
+                                break;
+                            }
+                        }
+                        if(funcao == -1 || listaColaboradores.get(funcao) instanceof Professor)
+                        {
+                            listaProjetos.get(id).addParticipantes(
+                                listaColaboradores.get(funcao));
+                        }else
+                        {
+                            System.out.println("Esse Professor não existe!!!\n");
+                        }
+                    }
+                    System.out.println("Colaborador Cadastrado no projeto Com"
+                            + " suCesso\n");
                     break;
                 case 2:
                     
@@ -230,6 +321,7 @@ public class PrincipalGPA
                     novaDescrição = ler.nextLine();
                     listaProjetos.add(new Projeto(novoTitulo, novaAgencia, 
                             novoObjetivo, novaDescrição, novoValor,novoComeço));
+                    
                     System.out.println("Projeto Publicado Para semPre!");
                     break;
                 case 0:
