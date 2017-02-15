@@ -2,7 +2,11 @@ package gestãodeproduçãoacademica;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PrincipalGPA 
 {
@@ -45,6 +49,45 @@ public class PrincipalGPA
         return resultado;
     }
     
+    public static double lerNovoDecimal() throws InputMismatchException
+    {
+        Scanner ler = new Scanner(System.in);
+        double resultado;
+        /*else if ( opcao == 2 )
+        {
+            System.out.println("Digite o ANO em que foi publicada:");
+        }*/
+        System.out.println("Digite o valor financiado no projeto:");
+        
+        resultado=ler.nextDouble();
+        ler.nextLine();
+        
+        return resultado;
+    }
+    
+    public static Calendar lerNovaData( int opcao ) throws ParseException //throws InputMismatchException
+    {
+        Scanner ler = new Scanner(System.in);
+        DateFormat converter = DateFormat.getDateInstance();
+        Calendar resultado = Calendar.getInstance();
+        String lido;
+        
+        
+        if ( opcao == 1 )
+        {
+            System.out.println("Digite a data de inicio:");
+        } else if ( opcao == 2 )
+        {
+            System.out.println("Digite a data do encerramento:");
+        }
+        
+        lido=ler.nextLine();
+        
+        resultado.setTime(converter.parse(lido));
+        
+        return resultado;
+    }
+    
     public static void main(String[] args)
     {
         ArrayList<Colaborador> listaColaboradores = new ArrayList(100);
@@ -54,9 +97,9 @@ public class PrincipalGPA
         Scanner ler = new Scanner(System.in);
         String novoNome, novoEmail, novoTitulo, novaAgencia, novoObjetivo, 
                 novaDescrição, lendoString;
-        double novoValor;
-        Calendar novoComeço, novoFim;
-        int opção = 0, novoAno, funcao = 0;
+        double novoValor = 0.0;
+        Calendar novoComeço = Calendar.getInstance(), novoFim = Calendar.getInstance();
+        int opção = 0, novoAno = 0, funcao = 0;
         boolean pronto;
         
         do
@@ -107,7 +150,7 @@ public class PrincipalGPA
                     novoNome = ler.nextLine();
                     System.out.println("Digite o e-mail do Professor:");
                     novoEmail = ler.nextLine();
-                    listaColaboradores.add(new Professor (novoNome, novoEmail, Função.PROFESSOR));
+                    listaColaboradores.add(new Professor (novoNome, novoEmail));
                     System.out.println("Colaborador Cadastrado Com suCesso!");
                     break;
                 case 10:
@@ -150,7 +193,44 @@ public class PrincipalGPA
                     System.out.println("Colaborador Cadastrado Com suCesso!");
                     break;
                 case 11:
-                    
+                    System.out.println("Digite o título do Projeto:");
+                    novoTitulo = ler.nextLine();
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            novoComeço = lerNovaData(1);
+                            pronto = true;
+                        } catch (InputMismatchException | ParseException erro )
+                        {
+                            System.out.println("Por favor, digite uma data no"
+                                    + "seguinte formato!!! (21/10/1995) \n");
+                        }
+                    }
+                    System.out.println("Digite o nome da Agência Financiadora "
+                            + "do Colaborador:");
+                    novaAgencia = ler.nextLine();
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            novoValor = lerNovoDecimal();
+                            pronto = true;
+                        }catch(InputMismatchException erro)
+                        {
+                            System.out.println("Por favor, digite apenas "
+                                    + "números e virgulas!!!\n");
+                        }
+                    }
+                    System.out.println("Digite a objetivo do Projeto:");
+                    novoObjetivo = ler.nextLine();
+                    System.out.println("Digite a descrição do Projeto:");
+                    novaDescrição = ler.nextLine();
+                    listaProjetos.add(new Projeto(novoTitulo, novaAgencia, 
+                            novoObjetivo, novaDescrição, novoValor,novoComeço));
+                    System.out.println("Projeto Publicado Para semPre!");
                     break;
                 case 0:
                     System.out.println("O programa foi encerrado com sucesso!"

@@ -6,10 +6,10 @@ public class Professor extends Colaborador
     
     protected ArrayList<ProduçãoAcademica> artigos;
 
-    public Professor( String novoNome, String novoEmail, Função novoTipoColaborador )
+    public Professor( String novoNome, String novoEmail )
     {
-        super(novoNome,novoEmail,novoTipoColaborador);
-        super.inicializarArtigos();
+        super(novoNome,novoEmail,Função.PROFESSOR);
+        //super.inicializarArtigos();Não preciso desse artigos???
     }
     
 }

@@ -12,15 +12,18 @@ public class Projeto
     
     public Projeto( String novoTitulo, String novaAgenciaFinanciadora, 
             String novoObjetivo, String novaDescrição, double novoValorFinanciado, 
-            Calendar novoInicio, Calendar novoTermino )
+            Calendar novoInicio/*, Calendar novoTermino*/ )
     {
         this.titulo = novoTitulo;
         this.agenciaFinanciadora = novaAgenciaFinanciadora;
         this.objetivo = novoObjetivo;
         this.descrição = novaDescrição;
         this.valorFinanciado = novoValorFinanciado;
+        this.dataInicio = Calendar.getInstance();
         this.dataInicio = novoInicio;
-        this.dataTermino = novoTermino;
+        this.dataTermino = Calendar.getInstance();
+        this.dataTermino.set(3000, 0, 0);
+        //this.dataTermino = novoTermino;
         participantes = new ArrayList<Colaborador>();
         estado = Status.EM_ELABORAÇÃO;
     }
