@@ -129,7 +129,7 @@ public class Projeto
         info += "\nAgência Financiadora: " + this.agenciaFinanciadora 
                 + "\nValor Financiado: R$ " 
                 + Double.toString(this.valorFinanciado) + "\nObjetivo: " 
-                + this.objetivo + "\nDescrição: " + this.descrição;
+                + this.objetivo + "\nDescrição: " + this.descrição + "\n";
         for( i = 0; i < this.participantes.size(); i++ )
         {
             info += this.participantes.get(i).toStringResumido(i + 1);
