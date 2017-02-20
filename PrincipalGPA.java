@@ -202,6 +202,10 @@ public class PrincipalGPA
                         {
                             listaProjetos.get(id).addParticipantes(
                                 listaColaboradores.get(funcao));
+                            listaColaboradores.get(funcao).addHistorico
+                                (listaProjetos.get(id));
+                            System.out.println("Colaborador Cadastrado no projeto Com"
+                                    + " suCesso\n");
                         }else
                         {
                             System.out.println("Esse Colaborador não existe!!!\n");
@@ -231,13 +235,15 @@ public class PrincipalGPA
                         {
                             listaProjetos.get(id).addParticipantes(
                                 listaColaboradores.get(funcao));
+                            listaColaboradores.get(funcao).addHistorico
+                                (listaProjetos.get(id));
+                            System.out.println("Colaborador Cadastrado no projeto Com"
+                                    + " suCesso\n");
                         }else
                         {
                             System.out.println("Esse Professor não existe!!!\n");
                         }
                     }
-                    System.out.println("Colaborador Cadastrado no projeto Com"
-                            + " suCesso\n");
                     break;
                 case 2:
                     pronto = false;
@@ -380,7 +386,7 @@ public class PrincipalGPA
                                     listaColaboradores.get(funcao)
                                             .addArtigos((Publicação) listaProduções
                                             .get(listaProduções.size() - 1));
-                                    pronto = true;
+                                    //pronto = true;
                                 }catch(InputMismatchException erro1)
                                 {
                                     System.out.println("Por favor, digite apenas números!!!\n");
@@ -397,9 +403,10 @@ public class PrincipalGPA
                         }else
                         {
                             pronto = true;
+                            System.out.println("Projeto Postado Para semPre!");
                         }
                     }
-                    System.out.println("Projeto Postado Para semPre!");
+                    
                     break;
                 case 5:
                     System.out.println("Digite o titulo da orientação:");

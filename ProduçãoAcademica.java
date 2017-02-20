@@ -11,6 +11,7 @@ public class ProduçãoAcademica
     {
         this.titulo = novoTitulo;
         this.associado = novoAssociado;
+        this.inicializarAutores();
     }
     
     public void inicializarAutores()
