@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class Colaborador
 {
     protected String nome, email;
-    protected Função tipoColaborador;
+    private Função tipoColaborador;
     protected ArrayList<Projeto> historico;
-    protected ArrayList<Publicação> artigos;
+    protected ArrayList<ProduçãoAcademica> artigos;
     
     
     public Colaborador( String novoNome, String novoEmail, Função novoTipoColaborador )
@@ -76,13 +76,13 @@ public class Colaborador
      * 
      * 
      */
-    public ArrayList<Publicação> getArtigos()
+    public ArrayList<ProduçãoAcademica> getArtigos()
     {
         return artigos;
     }
 
     
-    public void addArtigos(Publicação novoArtigo)
+    public void addArtigos(ProduçãoAcademica novoArtigo)
     {
         this.artigos.add(novoArtigo);
     }
@@ -111,5 +111,15 @@ public class Colaborador
         info += Integer.toString(id + 1) + "\n" + this.tipoColaborador.name();
         info += "\nNome: " + this.nome + "\nE-Mail: "+ this.email +"\n";
         return info;
+    }
+
+    public Função getTipoColaborador()
+    {
+        return tipoColaborador;
+    }
+
+    public void setTipoColaborador(Função tipoColaborador)
+    {
+        this.tipoColaborador = tipoColaborador;
     }
 }

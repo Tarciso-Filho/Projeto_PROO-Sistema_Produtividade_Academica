@@ -48,8 +48,10 @@ public class PrincipalGPA
                 System.out.println("Digite o ID do projeto:");
                 break;
             case 6:
-                System.out.println("Informe o ID do primeiro participante "
-                                + "(um Professor): ");
+                System.out.println("Informe o ID de um Professor: ");
+                break;
+            case 7:
+                System.out.println("Projeto de pesquisa associado? 1-Sim/0-Não ");
                 break;
             default:
                 break;
@@ -113,6 +115,7 @@ public class PrincipalGPA
         double novoValor = 0.0;
         Calendar novoComeço = Calendar.getInstance(), novoFim = Calendar.getInstance();
         int opção = 0, novoAno = 0, funcao = 0, id = -1, tamanho = -1;
+        int contEmElab, contEmAnda, contConcl, cont;
         boolean pronto, cancelar;
         
         do
@@ -154,6 +157,11 @@ public class PrincipalGPA
                             break;
                         }
                     }
+                    if( listaProjetos.get(id).getEstado() != Status.EM_ELABORAÇÃO )
+                    {
+                        System.out.println("Esse Projeto não pode ser mais alterado!!!\n");
+                        break;
+                    }
                     
                     if( tamanho > 0 )
                     {
@@ -163,6 +171,15 @@ public class PrincipalGPA
                             try
                             {
                                 funcao = lerNovoInteiro(4);
+                                if(listaColaboradores.get(funcao).getTipoColaborador() 
+                                        == Função.ALUNOGRADUAÇÃO && listaColaboradores
+                                                .get(funcao).getHistorico().size() >= 2)
+                                {
+                                    System.out.println("Esse aluno da graduação"
+                                            + " já se encontra no número maximo"
+                                            + " de projetos!!!\n");
+                                    break;
+                                }
                                 pronto = true;
                             }catch(InputMismatchException erro1)
                             {
@@ -170,12 +187,12 @@ public class PrincipalGPA
                             }catch(IndexOutOfBoundsException erro2)
                             {
                                 System.out.println("Esse valor é maior que o "
-                                        + "número de projetos\n");
+                                        + "número de colaboradores\n");
                                 pronto = true;
                                 break;
                             }
                         }
-                        if(funcao == -1)
+                        if(funcao != -1)
                         {
                             listaProjetos.get(id).addParticipantes(
                                 listaColaboradores.get(funcao));
@@ -198,12 +215,12 @@ public class PrincipalGPA
                             }catch(IndexOutOfBoundsException erro2)
                             {
                                 System.out.println("Esse valor é maior que o "
-                                        + "número de projetos\n");
+                                        + "número de colaboradores\n");
                                 pronto = true;
                                 break;
                             }
                         }
-                        if(funcao == -1 || listaColaboradores.get(funcao) instanceof Professor)
+                        if(funcao != -1 || listaColaboradores.get(funcao) instanceof Professor)
                         {
                             listaProjetos.get(id).addParticipantes(
                                 listaColaboradores.get(funcao));
@@ -216,15 +233,249 @@ public class PrincipalGPA
                             + " suCesso\n");
                     break;
                 case 2:
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            id = lerNovoInteiro(5);
+                            tamanho = listaProjetos.get(id).getParticipantes().size();
+                            pronto = true;
+                        }catch(InputMismatchException erro1)
+                        {
+                            System.out.println("Por favor, digite apenas números!!!\n");
+                        }catch(IndexOutOfBoundsException erro2)
+                        {
+                            System.out.println("Esse valor é maior que o "
+                                    + "número de projetos\n");
+                            pronto = true;
+                            break;
+                        }
+                    }
+                    if(tamanho > 0)
+                    {
+                        listaProjetos.get(id).setEstado(Status.EM_ANDAMENTO);
+                        System.out.println("Projeto eM AndaMento Modificado coM"
+                            + " sucesso\n");
+                    }else
+                    {
+                        System.out.println("Antes de alterar o estado do Projeto, "
+                                + "\nPor favor, inserir participantes");
+                    }
                     
                     break;
                 case 3:
-                    
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            id = lerNovoInteiro(5);
+                            cancelar = true;
+                            for(ProduçãoAcademica cursor: listaProduções)
+                            {
+                                if(cursor.getAssociado().equals(listaProjetos.get(id)))
+                                {
+                                    cancelar = false;
+                                }
+                            }
+                            pronto = true;
+                        }catch(InputMismatchException erro1)
+                        {
+                            System.out.println("Por favor, digite apenas números!!!\n");
+                        }catch(IndexOutOfBoundsException erro2)
+                        {
+                            System.out.println("Esse valor é maior que o "
+                                    + "número de projetos\n");
+                            pronto = true;
+                            break;
+                        }
+                    }
+                    if(!cancelar)
+                    {
+                        listaProjetos.get(id).setEstado(Status.CONCLUIDO);
+                        System.out.println("Projeto ConCluido Com"
+                            + " suCesso\n");
+                    }else
+                    {
+                        System.out.println("Antes de alterar o estado do Projeto, "
+                                + "\nPor favor, inserir produções associadas");
+                    }
                     break;
                 case 4:
-                    
+                    System.out.println("Digite o titulo da Publicação:");
+                    novoTitulo = ler.nextLine();
+                    System.out.println("Digite o nome da conferência em que "
+                            + "foi publicada:");
+                    novaAgencia = ler.nextLine();
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            novoAno = lerNovoInteiro(2);
+                            funcao = lerNovoInteiro(7);
+                            pronto = true;
+                        }catch(InputMismatchException erro1)
+                        {
+                            System.out.println("Por favor, digite apenas números!!!\n");
+                        }
+                    }
+                    if(funcao == 1)
+                    {
+                        pronto = false;
+                        while(!pronto)
+                        {
+                            try
+                            {
+                                id = lerNovoInteiro(5);
+                                listaProduções.add(new Publicação(novoTitulo, 
+                                    listaProjetos.get(id), novaAgencia, novoAno));
+                                pronto = true;
+                            }catch(InputMismatchException erro1)
+                            {
+                                System.out.println("Por favor, digite apenas números!!!\n");
+                            }catch(IndexOutOfBoundsException erro2)
+                            {
+                                System.out.println("Esse valor é maior que o "
+                                        + "número de projetos\n");
+                                pronto = true;
+                                break;
+                            }
+                        }
+                        
+                        
+                    }else
+                    {
+                        listaProduções.add(new Publicação(novoTitulo, null, 
+                                novaAgencia, novoAno ));
+                    }
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        System.out.println("Falta algum autor dessa publicação?"
+                                + "\nDigite SIM cadastrar um novo.");
+                        lendoString = ler.nextLine();
+                        if(lendoString == "SIM")
+                        {
+                            pronto = false;
+                            while(!pronto)
+                            {
+                                try
+                                {
+                                    funcao = lerNovoInteiro(4);
+                                    listaProduções.get(listaProduções.size() - 1)
+                                        .addAutores(listaColaboradores.get(funcao));
+                                    listaColaboradores.get(funcao)
+                                            .addArtigos((Publicação) listaProduções
+                                            .get(listaProduções.size() - 1));
+                                    pronto = true;
+                                }catch(InputMismatchException erro1)
+                                {
+                                    System.out.println("Por favor, digite apenas números!!!\n");
+                                }catch(IndexOutOfBoundsException erro2)
+                                {
+                                    System.out.println("Esse valor é maior que o "
+                                            + "número de colaboradores\n");
+                                    pronto = true;
+                                    break;
+                                }
+                            }
+                            
+                            
+                        }else
+                        {
+                            pronto = true;
+                        }
+                    }
+                    System.out.println("Projeto Postado Para semPre!");
                     break;
                 case 5:
+                    System.out.println("Digite o titulo da orientação:");
+                    novoTitulo = ler.nextLine();
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        try
+                        {
+                            funcao = lerNovoInteiro(7);
+                            pronto = true;
+                        }catch(InputMismatchException erro1)
+                        {
+                            System.out.println("Por favor, digite apenas números!!!\n");
+                        }
+                    }
+                    if(funcao == 1)
+                    {
+                        pronto = false;
+                        while(!pronto)
+                        {
+                            try
+                            {
+                                id = lerNovoInteiro(5);
+                                listaProduções.add(new Orientação(novoTitulo, 
+                                    listaProjetos.get(id)));
+                                pronto = true;
+                            }catch(InputMismatchException erro1)
+                            {
+                                System.out.println("Por favor, digite apenas números!!!\n");
+                            }catch(IndexOutOfBoundsException erro2)
+                            {
+                                System.out.println("Esse valor é maior que o "
+                                        + "número de projetos\n");
+                                pronto = true;
+                                break;
+                            }
+                        }
+                        
+                        
+                    }else
+                    {
+                        listaProduções.add(new Orientação(novoTitulo, null ));
+                    }
+                    pronto = false;
+                    while(!pronto)
+                    {
+                        System.out.println("Falta algum autor dessa publicação?"
+                                + "\nDigite SIM cadastrar um novo.");
+                        lendoString = ler.nextLine();
+                        if(lendoString.equals("SIM"))
+                        {
+                            pronto = false;
+                            while(!pronto)
+                            {
+                                try
+                                {
+                                    funcao = lerNovoInteiro(4);
+                                    if(listaColaboradores.get(funcao) instanceof Professor)
+                                    {
+                                        listaProduções.get(listaProduções.size() - 1).addAutores(listaColaboradores.get(funcao));
+                                        listaColaboradores.get(funcao).addArtigos( listaProduções.get(listaProduções.size() - 1));
+                                    }else
+                                    {
+                                        System.out.println("Informe apenas Professores!!!\n");
+                                    }
+                                    
+                                    pronto = true;
+                                }catch(InputMismatchException erro1)
+                                {
+                                    System.out.println("Por favor, digite apenas números!!!\n");
+                                }catch(IndexOutOfBoundsException erro2)
+                                {
+                                    System.out.println("Esse valor é maior que o "
+                                            + "número de colaboradores\n");
+                                    pronto = true;
+                                    break;
+                                }
+                            }
+                            
+                            
+                        }else
+                        {
+                            pronto = true;
+                        }
+                    }
+                    System.out.println("Projeto Postado Para semPre!");
                     
                     break;
                 case 6:
@@ -274,6 +525,18 @@ public class PrincipalGPA
                     System.out.println("Fim de Projeto\n");
                     break;
                 case 8:
+                    contEmElab = 0;
+                    contEmAnda = 0;
+                    contConcl = 0;
+                    
+                    
+                    System.out.println("\nRELATÓRIO DO LABORATÓRIO");
+                    System.out.println("Número de Colaboradores: "
+                            +Integer.toString(listaColaboradores.size()));
+                    System.out.println("\nRELATÓRIO DO LABORATÓRIO");
+                    System.out.println("\nRELATÓRIO DO LABORATÓRIO");
+                    System.out.println("\nRELATÓRIO DO LABORATÓRIO");
+                    System.out.println("\nRELATÓRIO DO LABORATÓRIO");
                     
                     break;
                 case 9:

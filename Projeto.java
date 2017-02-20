@@ -159,5 +159,15 @@ public class Projeto
         
         return info;
     }
+
+    public Status getEstado()
+    {
+        return estado;
+    }
+
+    public void setEstado(Status estado)
+    {
+        this.estado = estado;
+    }
     
 }

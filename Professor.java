@@ -19,7 +19,7 @@ public class Professor extends Colaborador
     {
         int i;
         String info = "Professor #";
-        info += Integer.toString(id + 1) + "\n" + this.tipoColaborador.name();
+        info += Integer.toString(id + 1) + "\n" + this.getTipoColaborador().name();
         info += "\nNome: " + this.nome + "\nE-Mail: "+ this.email +"\n";
         for( i = 0; i < this.historico.size(); i++ )
         {
@@ -35,7 +35,7 @@ public class Professor extends Colaborador
     public String toStringResumido( int id )
     {
         String info = "Professor #";
-        info += Integer.toString(id + 1) + "\n" + this.tipoColaborador.name();
+        info += Integer.toString(id + 1) + "\n" + this.getTipoColaborador().name();
         info += "\nNome: " + this.nome + "\nE-Mail: "+ this.email +"\n";
         return info;
     }

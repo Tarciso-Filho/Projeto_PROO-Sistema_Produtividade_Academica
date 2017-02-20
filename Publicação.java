@@ -10,7 +10,7 @@ public class Publicação extends ProduçãoAcademica
             String novaConferencia, int novoAno)
     {
         super(novoTitulo, novoAssociado);
-        this.inicializarAutores();
+        super.inicializarAutores();
         this.conferencia = novaConferencia;
         this.ano = novoAno;
     }
